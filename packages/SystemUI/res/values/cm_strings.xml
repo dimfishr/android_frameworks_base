@@ -27,6 +27,9 @@
     <string name="dessert_case_settings_cm_title">Show CM\'s mascots</string>
     <string name="dessert_case_settings_cm_summary">Show CM\'s mascots together with Android\'s desserts inside the dream</string>
 
+    <!-- Active Display -->
+    <string name="active_display_privacy_content">Content message not showing because privacy mode enabled</string>
+
     <!-- Quick Settings -->
     <string name="quick_settings_screen_sleep">Go to sleep</string>
     <string name="quick_settings_label_enabled">On</string>

@@ -16,6 +16,9 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Active Display -->
+  <string name="active_display_privacy_content">Содержимое сообщения не отображается, потому что режим конфиденциальности включен</string>
+
   <string name="accessibility_dpad_left">Курсор влево</string>
   <string name="accessibility_dpad_right">Курсор вправо</string>
   <string name="dessert_case_settings_cm_title">Значки CyanogenMod</string>
