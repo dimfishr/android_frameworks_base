@@ -3785,6 +3785,18 @@ public final class Settings {
         public static final int INCOMING_CALL_STYLE_FULLSCREEN_PHOTO = 1;
 
         /**
+         * Enable blocking wakelock
+         * @hide
+         */
+        public static final String WAKELOCK_BLOCKING_ENABLED = "wakelock_blocking_enabled";
+
+        /**
+         * List of wakelock blocks selected
+         * @hide
+         */
+        public static final String WAKELOCK_BLOCKING_LIST = "wakelock_blocking_list";
+
+        /**
          * Whether wifi settings will connect to access point automatically
          * 0 = automatically
          * 1 = manually
