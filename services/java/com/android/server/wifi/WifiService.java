@@ -332,7 +332,7 @@ public final class WifiService extends IWifiManager.Stub {
 
         // If we are already disabled (could be due to airplane mode), avoid changing persist
         // state here
-        if (wifiEnabled) setWifiEnabled(mContext.getBasePackageName(), wifiEnabled);
+        if (wifiEnabled) setWifiEnabledSec(mContext.getBasePackageName(), wifiEnabled);
 
         mWifiWatchdogStateMachine = WifiWatchdogStateMachine.
                makeWifiWatchdogStateMachine(mContext);
@@ -583,13 +583,41 @@ public final class WifiService extends IWifiManager.Stub {
                 "ConnectivityService");
     }
 
+    public synchronized boolean setWifiEnabled(boolean enable) {
+        int uid = Binder.getCallingUid();
+
+        Slog.d(TAG, "setWifiEnabled: " + enable + " pid=" + Binder.getCallingPid()
+                    + ", uid=" + Binder.getCallingUid());
+        if (DBG) {
+            Slog.e(TAG, "Invoking mWifiStateMachine.setWifiEnabled\n");
+        }
+
+        /*
+        * Caller might not have WRITE_SECURE_SETTINGS,
+        * only CHANGE_WIFI_STATE is enforced
+        */
+
+        long ident = Binder.clearCallingIdentity();
+        try {
+            if (! mSettingsStore.handleWifiToggled(enable)) {
+                // Nothing to do if wifi cannot be toggled
+                return true;
+            }
+        } finally {
+            Binder.restoreCallingIdentity(ident);
+        }
+
+        mWifiController.sendMessage(CMD_WIFI_TOGGLED);
+        return true;
+    }
+
     /**
      * see {@link android.net.wifi.WifiManager#setWifiEnabled(boolean)}
      * @param enable {@code true} to enable, {@code false} to disable.
      * @return {@code true} if the enable/disable operation was
      *         started or is already in the queue.
      */
-    public synchronized boolean setWifiEnabled(String callingPackage, boolean enable) {
+    public synchronized boolean setWifiEnabledSec(String callingPackage, boolean enable) {
         enforceChangePermission();
 
         int uid = Binder.getCallingUid();
