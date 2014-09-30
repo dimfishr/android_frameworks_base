@@ -1528,6 +1528,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
      * @see View#setDrawingCacheEnabled(boolean)
      */
     public void setScrollingCacheEnabled(boolean enabled) {
+        enabled = false;
         if (mScrollingCacheEnabled && !enabled) {
             clearScrollingCache();
         }
@@ -4920,7 +4921,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     private void createScrollingCache() {
-        if (mScrollingCacheEnabled && !mCachingStarted && !isHardwareAccelerated()) {
+        if (false && mScrollingCacheEnabled && !mCachingStarted && !isHardwareAccelerated()) {
             setChildrenDrawnWithCacheEnabled(true);
             setChildrenDrawingCacheEnabled(true);
             mCachingStarted = mCachingActive = true;
@@ -4928,7 +4929,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     private void clearScrollingCache() {
-        if (!isHardwareAccelerated()) {
+        if (false && !isHardwareAccelerated()) {
             if (mClearScrollingCache == null) {
                 mClearScrollingCache = new Runnable() {
                     @Override
